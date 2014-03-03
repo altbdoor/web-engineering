@@ -9,49 +9,37 @@
 	DB::$password = '';
 	DB::$dbName = 'toto_result';
 	
-	echo "So it's working, haha, welcome!";
-	echo "\n";
-	
 	// after user clicked submit on the login form, it should redirect to this script.
-	// authenticate user with id and pass.
+	// authenticate user with userid and password.
 	function authentication()
 	{
-	
-		//$user = $_POST['username'];
-		$user = "carbon";
+		
+		$username = $_POST['user'];
+		$password = $_POST['pass'];
 		
 		$found = 0;
 		$user_f = "";
 		
-		$results = DB::query("SELECT userid FROM user");
-		
-		/*
-		foreach ($results as $row) {
-		  echo "Name: " . $row['userid'] . "\n";
-		  echo "-------------\n";
-		}
-		*/
+		$results = DB::query("SELECT userid, password FROM user");
 		
 		foreach ($results as $row) 
 		{
-			if ( $user == $row['userid'])
+			if ( $username == $row['userid'] && $password == $row['password'])
 			{
 				$found = 1;
+				$user_f = $username;
 				break;
 			}	
 		}
 		
 		if ($found == 1)
 		{
-			echo "Welcome, ";
-			echo $user;
-			echo " Sama!";
+			echo "Welcome, " + $user_f + " Sama!";
 		}
 		
 	}
 	
-	
-	
+	authentication();
 ?>
 
 </body>
