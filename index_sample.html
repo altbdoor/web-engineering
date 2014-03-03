@@ -17,7 +17,15 @@
 		<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
 		<script>
 			$(function() {
-				$("#datepicker").datepicker();
+				$("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+				var availableTags = [
+				  "Toto",
+				  "Magnum",
+				  "Da Ma Cai",
+				];
+				$( "#vendor" ).autocomplete({
+				  source: availableTags
+				});
 			});
 		</script>
 		<div class="navbar navbar-inverse navbar-fixed-top">
