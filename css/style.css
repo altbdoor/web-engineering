@@ -1,0 +1,18 @@
+body {min-width:768px}
+
+#attentionText {
+	height:100px; padding:50px; text-shadow:1px 1px 5px #fff,-1px 1px 5px #fff,1px -1px 5px #fff,-1px -1px 5px #fff;
+	background-image:url('../img/monneh.jpg'); background-repeat:no-repeat; background-position:right center;
+}
+
+#search {padding-top:1em; padding-bottom:1em}
+#search h3, #search form {margin:0}
+#search form {margin-top:5px}
+#search .input-prepend {margin-bottom:0}
+
+#result h3 {margin-top:0; text-align:center}
+#result .btn-group-vertical {display:block}
+#result .btn-group-vertical .btn {width:100%}
+#result .btn-group-vertical .btn:first-child {font-weight:700}
+#result .btn-group-vertical .btn:hover {cursor:default}
+
