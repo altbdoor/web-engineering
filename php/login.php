@@ -14,27 +14,26 @@
 	function authentication()
 	{
 		
-		$username = $_POST['user'];
-		$password = $_POST['pass'];
+		$username = $_POST['signinUser'];
+		$password = $_POST['signinPass'];
 		
 		$found = 0;
-		$user_f = "";
 		
 		$results = DB::query("SELECT userid, password FROM user");
 		
 		foreach ($results as $row) 
 		{
-			if ( $username == $row['userid'] && $password == $row['password'])
+			
+			if ( $username == $row['userid'] && md5($password) == $row['password'])
 			{
 				$found = 1;
-				$user_f = $username;
 				break;
 			}	
 		}
 		
 		if ($found == 1)
 		{
-			echo "Welcome, " + $user_f + " Sama!";
+			echo "Welcome ", $username, " Sama";
 		}
 		
 	}
