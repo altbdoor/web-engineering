@@ -1,11 +1,12 @@
-body {min-width:768px}
+html {overflow-y:scroll}
+body {min-width:767px}
 
 #attentionText {
 	height:100px; padding:50px; text-shadow:1px 1px 5px #fff,-1px 1px 5px #fff,1px -1px 5px #fff,-1px -1px 5px #fff;
 	background-image:url('../img/monneh.jpg'); background-repeat:no-repeat; background-position:right center;
 }
 
-#search {padding-top:1em; padding-bottom:1em}
+#search {padding-top:0.5em; padding-bottom:0.5em}
 #search h3, #search form {margin:0}
 #search form {margin-top:5px}
 #search .input-prepend {margin-bottom:0}

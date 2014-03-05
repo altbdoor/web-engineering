@@ -11,6 +11,10 @@
 	</head>
 	
 	<body>
+		<?php 
+			getSearchModal();
+		?>
+		
 		<div class="navbar navbar-inverse navbar-static-top">
 			<div class="navbar-inner">
 				<div class="container">
@@ -34,30 +38,17 @@
 				<div class="span12 clearfix">
 					<h3 class="pull-left"><i class="icon-time"></i> 24 Jan 2013</h3>
 					
-					<form class="pull-right">
-						<div class="input-prepend">
-							<span class="add-on"><i class="icon-calendar"></i></span>
-							<input id="searchDate" name="searchDate" class="span2" type="text" placeholder="Date">
-						</div>
-						
-						<div class="input-prepend">
-							<span class="add-on"><i class="icon-flag-checkered"></i></span>
-							<select id="searchVendor" name="searchVendor">
-								<option disabled selected>Vendor Name
-								<option>Magnum
-								<option>Sports Toto
-							</select>
-						</div>
-						
-						<button type="submit" class="btn btn-success">Search <i class="icon-search"></i></button>
-					</form>
+					<?php getSearchForm(); ?>
 				</div>
 			</div>
 			
 			<div id="result" class="row">
+				<?php
+					// should format output properly
+				?>
 				<div class="span4">
 					<div class="well">
-						<h3>Magnum</h3>
+						<h3><img src="img/vendor_magnum.jpg" width="50" height="50" class="img-polaroid img-circle hidden-tablet"> Magnum</h3>
 						
 						<div class="btn-group btn-group-vertical">
 							<button class="btn btn-primary">1st Prize: 2301</button>
@@ -71,7 +62,7 @@
 				
 				<div class="span4">
 					<div class="well">
-						<h3>Sports Toto</h3>
+						<h3><img src="img/vendor_sportstoto.jpg" width="50" height="50" class="img-polaroid img-circle hidden-tablet"> Sports Toto</h3>
 						
 						<div class="btn-group btn-group-vertical">
 							<button class="btn btn-primary">1st Prize: 2301</button>
@@ -84,7 +75,7 @@
 				
 				<div class="span4">
 					<div class="well">
-						<h3>Magnum</h3>
+						<h3><img src="img/vendor_damacai.jpg" width="50" height="50" class="img-polaroid img-circle hidden-tablet"> Da Ma Cai</h3>
 						
 						<div class="btn-group btn-group-vertical">
 							<button class="btn btn-primary">1st Prize: 2301</button>
@@ -96,6 +87,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<?php getFooter(); ?>
 		</div>
 		
 		<?php getJs(); ?>
