@@ -31,3 +31,8 @@ Prepare repo structure and start detailed logging. Added Bootstrap 2, MeekroDB, 
 
 ---
 ### 4 March
+Should have been milestone instead of deadline. Revised roles with the members. Discussion about the user interface.
+
+- Say Thong = PHP back end
+- Han Seng = Front end
+- Jiun Yann = Documentation
