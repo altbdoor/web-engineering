@@ -16,6 +16,8 @@
 		
 		$username = $_POST['signinUser'];
 		$password = $_POST['signinPass'];
+
+		$salt = "WebE";
 		
 		$found = 0;
 		
@@ -23,8 +25,9 @@
 		
 		foreach ($results as $row) 
 		{
+			$resolved_pass = hash("md5", $password . $salt);
 			
-			if ( $username == $row['userid'] && md5($password) == $row['password'])
+			if ( $username == $row['userid'] && $resolved_pass == $row['password'])
 			{
 				$found = 1;
 				break;
