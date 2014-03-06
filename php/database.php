@@ -102,7 +102,7 @@
 		
 		// date format might have issue
 		// might need to seperate to different views for each vendor, depends on the design
-		$results = DB::query("SELECT resultnumberji, prize, vendor FROM result WHERE resultdate = %s", $date);
+		$results = DB::query("SELECT resultnumber, prize, vendor FROM result WHERE resultdate = %s", $date);
 		
 		/*
 		foreach ($results as $row)
