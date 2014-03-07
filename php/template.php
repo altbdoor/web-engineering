@@ -61,7 +61,9 @@
 						<option selected value="">Vendor Name
 		';
 		
-		$vendors = getVendors();
+		$vendors = array_keys(getVendors());
+		sort($vendors);
+		
 		foreach ($vendors as $x) {
 			echo '<option value="'.$x.'">'.$x;
 		}
@@ -110,5 +112,9 @@
 				</div>
 			</div>
 		';
+	}
+	
+	function getNewDate ($format = 'd M Y') {
+		echo date($format);
 	}
 ?>

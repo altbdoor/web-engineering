@@ -43,7 +43,7 @@
 		<div class="container">
 			<div id="search" class="row">
 				<div class="span12 clearfix">
-					<h3 class="pull-left"><i class="icon-time"></i> 24 Jan 2013</h3>
+					<h3 class="pull-left"><i class="icon-time"></i> <?php getNewDate(); ?></h3>
 					
 					<?php getSearchForm(); ?>
 				</div>
