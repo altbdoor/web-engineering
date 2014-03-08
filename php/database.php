@@ -1,5 +1,6 @@
 <?php
 	require_once 'meekrodb.php';
+	include 'session.php';
 	
 	//=============================================
 	
@@ -59,6 +60,7 @@
 		
 		if (!empty($results)) {
 			$found = true;
+			createSession();
 		}
 		
 		return $found;
@@ -125,4 +127,5 @@
 	}
 	
 	//=============================================
+	
 ?>
