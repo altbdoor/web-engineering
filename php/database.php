@@ -68,7 +68,7 @@
 	
 	
 	// to get today's result
-	function getTodayResult()
+	function getTodayResult($vendor)
 	{
 		dbConnect();
 		
@@ -78,7 +78,7 @@
 		
 		// date format might have issue
 		// might need to seperate to different views for each vendor, depends on the design
-		$results = DB::query("SELECT resultnumber, prize, vendor FROM result WHERE resultdate = %s", $date);
+		$results = DB::query("SELECT resultnumber, prize, FROM result WHERE resultdate = %s AND vendor = %d ORDER BY resultdate LIMIT 23", $date, $vendor);
 		
 		return $results;
 	}
