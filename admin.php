@@ -1,5 +1,28 @@
 <?php
 	require_once 'php/template.php';
+	require_once 'php/session.php';
+	require_once 'php/database.php';
+	
+	session_start();
+	$user = false;
+	
+	if (isset($_POST['user']) && isset($_POST['pass'])) {
+		$user = authentication($_POST['user'], $_POST['pass']);
+		
+		if ($user) {
+			createSession();
+		}
+		
+		header('location:admin.php');
+	}
+	else if (isset($_POST['logout'])) {
+		destroySession();
+		header('location:admin.php');
+	}
+	
+	if (checkSession()) {
+		$user = true;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,15 +37,18 @@
 		<?php getNav(); ?>
 		
 		<div class="container">
-			<div class="row" style="margin-top:1em">
-				<div class="span6 offset3 text-center">
-					<form id="signinForm" class="well well-large" method="post" action=".">
-						<input class="input-block-level" type="text" id="signinUser" name="signinUser" placeholder="Username" maxlength="32" autofocus>
-						<input class="input-block-level" type="password" id="signinPass" name="signinPass" placeholder="Password" maxlength="32">
-						<button class="btn btn-primary btn-large btn-block" type="submit" name="signin">Sign In</button>
-					</form>
-				</div>
-			</div>
+			<?php
+				$file = '';
+				
+				if ($user) {
+					$file = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+				}
+				else {
+					$file = 'login';
+				}
+				
+				readfile('php/admin/'.$file.'.php');
+			?>
 			
 			<?php getFooter(); ?>
 		</div>

@@ -1,6 +1,6 @@
 <?php
 	require_once 'meekrodb.php';
-	include 'session.php';
+	//require_once 'session.php';
 	
 	//=============================================
 	
@@ -60,7 +60,8 @@
 		
 		if (!empty($results)) {
 			$found = true;
-			createSession();
+			// session will be created by the page.
+			//createSession();
 		}
 		
 		return $found;
@@ -80,7 +81,8 @@
 		
 		// date format might have issue
 		// might need to seperate to different views for each vendor, depends on the design
-		$results = DB::query("SELECT resultnumber, prize, FROM result WHERE resultdate = %s AND vendor = %d ORDER BY resultdate LIMIT 23", $date, $vendor);
+		// missed the comparison operator, to allow it to get the latest result, and the order
+		$results = DB::query("SELECT resultnumber, prize, FROM result WHERE resultdate <= %s AND vendor = %d ORDER BY resultdate DESC LIMIT 23", $date, $vendor);
 		
 		return $results;
 	}

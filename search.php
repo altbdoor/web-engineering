@@ -55,22 +55,55 @@
 						$date = $_POST['searchDate'];
 						$vendor = $_POST['searchVendor'];
 						
-						if (preg_match("/\d{2}\/\d{2}\/\d{4}/", $date) && (in_array($vendor, getVendors()))) {
-							// reformat date to yyyy-mm-dd
-							$date = implode('-', array_reverse(explode('/', $date)));
+						$vendorsList = getVendors();
+						$prizeList = getPrize();
+						
+						if (preg_match("/\d{2}\/\d{2}\/\d{4}/", $date) && (in_array($vendor, array_keys($vendorsList)))) {
+							$result = searchResult(implode('-', array_reverse(explode('/', $date))), $vendorsList[$vendor]);
 							
-							/*
-								based on $date and $vendor, please make a query and return the
-								rightful values (supposedly in array). i will design them when
-								the output is ready.
+							if (empty($result)) {
+								getError('Seems like our database does not have that entry');
+							}
+							else {
+								echo '
+									<div class="span3">
+										<div class="well text-center">
+											<img src="img/vendor_'.(str_replace(' ', '', strtolower($vendor))).'.jpg" width="100" height="100" class="img-polaroid img-circle">
+											<h3>'.$vendor.'</h3>
+										</div>
+									</div>
+									
+									<div class="span9">
+										<h3>Results on '.$date.'</h3>
+										
+										<table class="table table-striped table-bordered table-hover">
+								';
 								
-								please wrap the process in a function in /php/database.php, and
-								call it out here.
+								for ($i=0; $i<3; $i++) {
+									$x = $result[$i];
+									
+									echo '
+										<tr class="'.($i == 0 ? 'info' : '').'">
+											<td style="font-weight:700;width:50%">'.array_search($x['prize'], $prizeList).' Prize</td>
+											<td>'.$x['resultnumber'].'</td>
+										</tr>
+									';
+								}
 								
-								thank you.
-							*/
-							
-							//getError('Seems like our database does not have that entry');
+								echo '
+										</table>
+										
+										<table class="table table-striped table-bordered table-hover">
+											
+										</table>
+									</div>
+								';
+								
+								/*str_replace("\t", ' ', $name);
+									 Array ( [0] => Array ( [resultnumber] => 1234 [prize] => 01 ) [1] => Array ( [resultnumber] => 0851 [prize] => 02 ) [2] => Array ( [resultnumber] => 5801 [prize] => 03 ) [3] => Array ( [resultnumber] => 6890 [prize] => 10 ) [4] => Array ( [resultnumber] => 3493 [prize] => 11 ) )
+								*/
+								//print_r($result);
+							}
 						}
 						else {
 							getError('Seems like there was something wrong with the input');
