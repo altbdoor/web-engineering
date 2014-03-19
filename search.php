@@ -13,6 +13,8 @@
 			</div>
 		';
 	}
+	
+	$date = strtotime('16 March 2014');
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +45,7 @@
 		<div class="container">
 			<div id="search" class="row">
 				<div class="span12 clearfix">
-					<h3 class="pull-left"><i class="icon-time"></i> <?php getNewDate(); ?></h3>
+					<h3 class="pull-left"><i class="icon-time"></i> <?php echo date('d M Y', $date); ?></h3>
 					
 					<?php getSearchForm(); ?>
 				</div>

@@ -28,7 +28,7 @@
 	// to retrieve session
 	// require sessionID input
 	// the input is not used...?
-	function retrieveSession($sessionID)
+	function retrieveSession(/*$sessionID*/)
 	{
 		if (isset($_SESSION['login']) && $_SESSION['login'] == generateSessionID())
 		{

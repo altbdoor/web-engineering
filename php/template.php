@@ -113,8 +113,4 @@
 			</div>
 		';
 	}
-	
-	function getNewDate ($format = 'd M Y') {
-		echo date($format);
-	}
 ?>

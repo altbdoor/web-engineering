@@ -76,13 +76,16 @@
 		dbConnect();
 		
 		// set to Malaysia timezone
-		date_default_timezone_set('Asia/Kuala_Lumpur');
-		$date = date('Y-m-d');
+		//date_default_timezone_set('Asia/Kuala_Lumpur');
+		//$date = date('Y-m-d');
+		// we're hardcoding ;)
+		$date = date('Y-m-d', strtotime('16 March 2014'));
 		
 		// date format might have issue
 		// might need to seperate to different views for each vendor, depends on the design
 		// missed the comparison operator, to allow it to get the latest result, and the order
-		$results = DB::query("SELECT resultnumber, prize, FROM result WHERE resultdate <= %s AND vendor = %d ORDER BY resultdate DESC LIMIT 23", $date, $vendor);
+		// shit, one extra comma making my life so hard
+		$results = DB::query("SELECT resultnumber, prize FROM result WHERE resultdate <= %s AND vendor = %s ORDER BY resultdate DESC, prize LIMIT 23", $date, $vendor);
 		
 		return $results;
 	}

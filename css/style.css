@@ -1,4 +1,4 @@
-html {overflow-y:scroll}
+html {overflow-y:scroll; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 body {min-width:767px}
 
 #attentionText {
@@ -17,3 +17,5 @@ body {min-width:767px}
 #result .btn-group-vertical .btn:first-child {font-weight:700}
 #result .btn-group-vertical .btn:hover {cursor:default}
 
+#result .list {list-style:none; margin:0.5em 0.5em 0; padding:0; border-top:1px solid #ccc}
+#result .list > li {border-bottom:1px solid #ccc}
