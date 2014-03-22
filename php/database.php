@@ -85,7 +85,7 @@
 		// might need to seperate to different views for each vendor, depends on the design
 		// missed the comparison operator, to allow it to get the latest result, and the order
 		// shit, one extra comma making my life so hard
-		$results = DB::query("SELECT resultnumber, prize FROM result WHERE resultdate <= %s AND vendor = %s ORDER BY resultdate DESC, prize LIMIT 23", $date, $vendor);
+		$results = DB::query("SELECT resultnumber, prize, resultdate FROM result WHERE resultdate <= %s AND vendor = %s ORDER BY resultdate DESC, prize LIMIT 23", $date, $vendor);
 		
 		return $results;
 	}

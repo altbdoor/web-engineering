@@ -51,6 +51,8 @@
 					
 					foreach ($vendorsList as $key => $value) {
 						$data = getTodayResult($value);
+						$date = DateTime::createFromFormat('Y-m-d', $data[0]['resultdate']);
+						
 						$prizeList = array();
 						
 						foreach ($data as $datum) {
@@ -65,6 +67,8 @@
 							<div class="span4">
 								<div class="well">
 									<h3><img src="img/vendor_'.strtolower(str_replace(' ', '', $key)).'.jpg" width="50" height="50" class="img-polaroid img-circle hidden-tablet"> '.$key.'</h3>
+									
+									<h4 class="text-center">'.$date->format('d M Y').'</h4>
 									
 									<div class="btn-group btn-group-vertical">
 										<button class="btn btn-primary">1st Prize: '.$prizeList['01'][0].'</button>

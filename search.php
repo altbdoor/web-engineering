@@ -61,12 +61,23 @@
 						$prizeList = getPrize();
 						
 						if (preg_match("/\d{2}\/\d{2}\/\d{4}/", $date) && (in_array($vendor, array_keys($vendorsList)))) {
-							$result = searchResult(implode('-', array_reverse(explode('/', $date))), $vendorsList[$vendor]);
+							$data = searchResult(implode('-', array_reverse(explode('/', $date))), $vendorsList[$vendor]);
+							$date = DateTime::createFromFormat('d/m/Y', $date);
 							
-							if (empty($result)) {
+							if (empty($data)) {
 								getError('Seems like our database does not have that entry');
 							}
 							else {
+								$prizeList = array();
+								
+								foreach ($data as $datum) {
+									if (!array_key_exists($datum['prize'], $prizeList)) {
+										$prizeList[$datum['prize']] = array();
+									}
+									
+									array_push($prizeList[$datum['prize']], $datum['resultnumber']);
+								}
+								
 								echo '
 									<div class="span3">
 										<div class="well text-center">
@@ -76,35 +87,55 @@
 									</div>
 									
 									<div class="span9">
-										<h3>Results on '.$date.'</h3>
+										<h3>Results on '.$date->format('d M Y').'</h3>
 										
 										<table class="table table-striped table-bordered table-hover">
+											<tr class="info" style="font-weight:700">
+												<td style="width:50%">First Prize</td>
+												<td>'.$prizeList['01'][0].'</td>
+											</tr>
+											<tr>
+												<td style="width:50%">Second Prize</td>
+												<td>'.$prizeList['02'][0].'</td>
+											</tr>
+											<tr>
+												<td style="width:50%">Third Prize</td>
+												<td>'.$prizeList['03'][0].'</td>
+											</tr>
+										</table>
+										
+										<table class="table table-striped table-bordered table-hover">
+											<tr>
+												<th style="width:50%">Special</th>
+												<th>Consolation</th>
+											</tr>
+											<tr>
+												<td>
+													<ul style="list-style:none">
 								';
 								
-								for ($i=0; $i<3; $i++) {
-									$x = $result[$i];
-									
-									echo '
-										<tr class="'.($i == 0 ? 'info' : '').'">
-											<td style="font-weight:700;width:50%">'.array_search($x['prize'], $prizeList).' Prize</td>
-											<td>'.$x['resultnumber'].'</td>
-										</tr>
-									';
+								foreach ($prizeList['10'] as $datum) {
+									echo '<li class="pull-left text-center" style="width:50%">'.$datum.'</li>';
 								}
 								
 								echo '
-										</table>
-										
-										<table class="table table-striped table-bordered table-hover">
-											
+													</ul>
+												</td>
+												<td>
+													<ul style="list-style:none">
+								';
+								
+								foreach ($prizeList['11'] as $datum) {
+									echo '<li class="pull-left text-center" style="width:50%">'.$datum.'</li>';
+								}
+								
+								echo '
+													</ul>
+												</td>
+											</tr>
 										</table>
 									</div>
 								';
-								
-								/*str_replace("\t", ' ', $name);
-									 Array ( [0] => Array ( [resultnumber] => 1234 [prize] => 01 ) [1] => Array ( [resultnumber] => 0851 [prize] => 02 ) [2] => Array ( [resultnumber] => 5801 [prize] => 03 ) [3] => Array ( [resultnumber] => 6890 [prize] => 10 ) [4] => Array ( [resultnumber] => 3493 [prize] => 11 ) )
-								*/
-								//print_r($result);
 							}
 						}
 						else {
@@ -115,17 +146,6 @@
 						getError('Seems like you have forgotten to type in your search fields');
 					}
 				?>
-				
-				<!--<div class="span3">
-					<div class="well text-center">
-						<img src="img/vendor_sportstoto.jpg" width="100" height="100" class="img-polaroid img-circle">
-						<h3>Sports Toto</h3>
-					</div>
-				</div>
-				
-				<div class="span9">
-					<h3>Results on 23/04/1992</h3>
-				</div>-->
 			</div>
 			
 			<?php getFooter(); ?>
