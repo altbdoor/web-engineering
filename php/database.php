@@ -133,4 +133,35 @@
 	
 	//=============================================
 	
+	// to update/edit data
+	function editResult()
+	{
+		dbConnect();
+		
+		$date = $_POST['resultdate'];
+		$number = $_POST['resultnumber'];
+		$prize = $_POST['prize'];
+		$vendor= $_POST['vendor'];
+		
+		// update result number
+		DB::update("result", array("resultnumber"=>$number),"resultdate=%s AND vendor=%s AND prize =%s", $date, $vendor, $prize);
+		
+	}
+	
+	// to list all result for admin edit
+	function listResult()
+	{
+		
+		dbConnect();
+		
+		// will display all result
+		// but all prize is seperated but with same date
+		// and it's very messy
+		// need advice
+		$results = DB::query("SELECT resultdate, vendor, prize, number FROM result");
+		
+		return $results;
+		
+	}
+	
 ?>
