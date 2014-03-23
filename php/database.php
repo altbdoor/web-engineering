@@ -158,7 +158,7 @@
 		// but all prize is seperated but with same date
 		// and it's very messy
 		// need advice
-		$results = DB::query("SELECT resultdate, vendor, prize, number FROM result");
+		$results = DB::query("SELECT * FROM result ORDER BY resultdate, vendor, prize");
 		
 		return $results;
 		
