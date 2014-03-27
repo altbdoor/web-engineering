@@ -24,7 +24,6 @@
 	
 	function getJs () {
 		$js = array(
-			'js/prefixfree.min.js',
 			'js/jquery.min.js',
 			'js/bootstrap.min.js',
 			'js/bootstrap-datepicker.min.js',
