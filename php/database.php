@@ -71,7 +71,7 @@
 	
 	
 	// to get today's result
-	function getTodayResult($vendor)
+	function getTodayResult($vendor, $date)
 	{
 		dbConnect();
 		
@@ -79,13 +79,16 @@
 		//date_default_timezone_set('Asia/Kuala_Lumpur');
 		//$date = date('Y-m-d');
 		// we're hardcoding ;)
-		$date = date('Y-m-d', strtotime('16 March 2014'));
 		
 		// date format might have issue
 		// might need to seperate to different views for each vendor, depends on the design
 		// missed the comparison operator, to allow it to get the latest result, and the order
 		// shit, one extra comma making my life so hard
-		$results = DB::query("SELECT resultnumber, prize, resultdate FROM result WHERE resultdate <= %s AND vendor = %s ORDER BY resultdate DESC, prize LIMIT 23", $date, $vendor);
+		DB::$param_char = '##';
+		
+		$results = DB::query("SELECT resultnumber, prize, DATE_FORMAT(resultdate, '%e %b %Y') AS _resultdate FROM result WHERE resultdate <= ##s AND vendor = ##s ORDER BY resultdate DESC, prize LIMIT 23", $date, $vendor);
+		
+		DB::$param_char = '%';
 		
 		return $results;
 	}
@@ -115,36 +118,36 @@
 	//=============================================
 	
 	// to add new result
-	function addResult()
+	function addResult($date, $number, $prize, $vendor)
 	{
 		dbConnect();
 		
 		//might need some modifications on date
-		$date = $_POST['resultdate'];
+		/*$date = $_POST['resultdate'];
 		$number = $_POST['resultnumber'];
 		$prize = $_POST['prize'];
-		$vendor= $_POST['vendor'];
+		$vendor= $_POST['vendor'];*/
 		
 		DB::insert("result", array("resultdate"=>$date, "resultnumber"=>$number,"prize"=>$prize, "vendor"=>$vendor));
 		
-		return $x;
+		//return $x;
 		
 	}
 	
 	//=============================================
 	
 	// to update/edit data
-	function editResult()
+	function editResult($id, $date, $number, $prize, $vendor)
 	{
 		dbConnect();
 		
-		$date = $_POST['resultdate'];
+		/*$date = $_POST['resultdate'];
 		$number = $_POST['resultnumber'];
 		$prize = $_POST['prize'];
-		$vendor= $_POST['vendor'];
+		$vendor= $_POST['vendor'];*/
 		
 		// update result number
-		DB::update("result", array("resultnumber"=>$number),"resultdate=%s AND vendor=%s AND prize =%s", $date, $vendor, $prize);
+		DB::update("result", array("resultdate"=>$date, "resultnumber"=>$number,"prize"=>$prize, "vendor"=>$vendor),"resultid=%d", $id);
 		
 	}
 	
@@ -158,7 +161,11 @@
 		// but all prize is seperated but with same date
 		// and it's very messy
 		// need advice
-		$results = DB::query("SELECT * FROM result ORDER BY resultdate, vendor, prize");
+		DB::$param_char = '##';
+		
+		$results = DB::query("SELECT resultid, resultnumber, DATE_FORMAT(resultdate, '%e %b %Y') AS _resultdate, prize, vendor FROM result ORDER BY resultdate DESC, vendor, prize");
+		
+		DB::$param_char = '%';
 		
 		return $results;
 		

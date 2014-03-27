@@ -14,7 +14,7 @@
 		';
 	}
 	
-	$date = strtotime('16 March 2014');
+	$today = DateTime::createFromFormat('d/m/Y', '25/03/2014');
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +45,7 @@
 		<div class="container">
 			<div id="search" class="row">
 				<div class="span12 clearfix">
-					<h3 class="pull-left"><i class="icon-time"></i> <?php echo date('d M Y', $date); ?></h3>
+					<h3 class="pull-left"><i class="icon-time"></i> <?php echo $today->format('d M Y'); ?></h3>
 					
 					<?php getSearchForm(); ?>
 				</div>
@@ -54,15 +54,16 @@
 			<div class="row">
 				<?php
 					if (isset($_POST['searchDate']) && isset($_POST['searchVendor'])) {
-						$date = $_POST['searchDate'];
-						$vendor = $_POST['searchVendor'];
-						
 						$vendorsList = getVendors();
 						$prizeList = getPrize();
 						
-						if (preg_match("/\d{2}\/\d{2}\/\d{4}/", $date) && (in_array($vendor, array_keys($vendorsList)))) {
-							$data = searchResult(implode('-', array_reverse(explode('/', $date))), $vendorsList[$vendor]);
+						$date = $_POST['searchDate'];
+						$vendor = $_POST['searchVendor'];
+						$vendorName = array_search($vendor, $vendorsList);
+						
+						if (preg_match("/\d{2}\/\d{2}\/\d{4}/", $date) && (in_array($vendor, array_values($vendorsList)))) {
 							$date = DateTime::createFromFormat('d/m/Y', $date);
+							$data = searchResult($date->format('Y-m-d'), $vendor);
 							
 							if (empty($data)) {
 								getError('Seems like our database does not have that entry');
@@ -81,8 +82,8 @@
 								echo '
 									<div class="span3">
 										<div class="well text-center">
-											<img src="img/vendor_'.(str_replace(' ', '', strtolower($vendor))).'.jpg" width="100" height="100" class="img-polaroid img-circle">
-											<h3>'.$vendor.'</h3>
+											<img src="img/vendor_'.(str_replace(' ', '', strtolower($vendorName))).'.jpg" width="100" height="100" class="img-polaroid img-circle">
+											<h3>'.$vendorName.'</h3>
 										</div>
 									</div>
 									

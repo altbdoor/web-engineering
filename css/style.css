@@ -19,3 +19,7 @@ body {min-width:767px}
 
 #result .list {list-style:none; margin:0.5em 0.5em 0; padding:0; border-top:1px solid #ccc}
 #result .list > li {border-bottom:1px solid #ccc}
+
+.prizeList {margin:0; padding:0; list-style:none}
+.prizeList > li {float:left; width:50%}
+.prizeList > li > input[type=text] {display:block}

@@ -24,6 +24,7 @@
 	
 	function getJs () {
 		$js = array(
+			'js/prefixfree.min.js',
 			'js/jquery.min.js',
 			'js/bootstrap.min.js',
 			'js/bootstrap-datepicker.min.js',
@@ -61,11 +62,10 @@
 						<option selected value="">Vendor Name
 		';
 		
-		$vendors = array_keys(getVendors());
-		sort($vendors);
+		$vendorsList = getVendors();
 		
-		foreach ($vendors as $x) {
-			echo '<option value="'.$x.'">'.$x;
+		foreach ($vendorsList as $key => $value) {
+			echo '<option value="'.$value.'">'.$key.'</option>';
 		}
 		
 		echo '

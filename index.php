@@ -2,7 +2,7 @@
 	require_once 'php/template.php';
 	require_once 'php/meekrodb.php';
 	
-	$date = strtotime('16 March 2014');
+	$today = DateTime::createFromFormat('d/m/Y', '25/03/2014');
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@
 			
 			<div id="search" class="row">
 				<div class="span12 clearfix">
-					<h3 class="pull-left"><i class="icon-time"></i> <?php echo date('d M Y', $date); ?></h3>
+					<h3 class="pull-left"><i class="icon-time"></i> <?php echo $today->format('d M Y'); ?></h3>
 					
 					<?php getSearchForm(); ?>
 				</div>
@@ -50,9 +50,7 @@
 					$vendorsList = getVendors();
 					
 					foreach ($vendorsList as $key => $value) {
-						$data = getTodayResult($value);
-						$date = DateTime::createFromFormat('Y-m-d', $data[0]['resultdate']);
-						
+						$data = getTodayResult($value, $today->format('Y-m-d'));
 						$prizeList = array();
 						
 						foreach ($data as $datum) {
@@ -68,7 +66,7 @@
 								<div class="well">
 									<h3><img src="img/vendor_'.strtolower(str_replace(' ', '', $key)).'.jpg" width="50" height="50" class="img-polaroid img-circle hidden-tablet"> '.$key.'</h3>
 									
-									<h4 class="text-center">'.$date->format('d M Y').'</h4>
+									<h4 class="text-center">'.$data[0]['_resultdate'].'</h4>
 									
 									<div class="btn-group btn-group-vertical">
 										<button class="btn btn-primary">1st Prize: '.$prizeList['01'][0].'</button>
